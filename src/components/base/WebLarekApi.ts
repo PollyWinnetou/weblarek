@@ -8,7 +8,9 @@ export class WebLarekApi {
   }
 
   getProducts(): Promise<IProduct[]> {
-    return this.api.get<{ total: number; items: IProduct[] }>("/product/").then(data => data.items);
+    return this.api
+      .get<{ total: number; items: IProduct[] }>("/product/")
+      .then((data) => data.items);
   }
 
   sendOrder(orderData: IOrder): Promise<IOrder> {

@@ -1,22 +1,24 @@
 import { IBuyer } from "../../../types/index.ts";
 
 export class Customer implements IBuyer {
-  payment: 'cash' | 'card' | '';
+  payment: "cash" | "card" | "";
   email: string;
   phone: string;
   address: string;
-  
-  constructor(payment: 'cash' | 'card' | '', 
-    email: string, 
+
+  constructor(
+    payment: "cash" | "card" | "",
+    email: string,
     phone: string,
-    address: string) {
+    address: string
+  ) {
     this.payment = payment;
     this.email = email;
     this.phone = phone;
     this.address = address;
   }
 
-  setPayment(payment: 'cash' | 'card' | ''): void {
+  setPayment(payment: "cash" | "card" | ""): void {
     this.payment = payment;
   }
 
@@ -37,40 +39,40 @@ export class Customer implements IBuyer {
       payment: this.payment,
       address: this.address,
       email: this.email,
-      phone: this.phone
-    }
+      phone: this.phone,
+    };
   }
 
   clearPayment(): void {
-    this.payment = '';
+    this.payment = "";
   }
 
   clearAddress(): void {
-    this.address  = '';
+    this.address = "";
   }
 
   clearEmail(): void {
-    this.email = '';
+    this.email = "";
   }
 
   clearPhone(): void {
-    this.phone  = '';
+    this.phone = "";
   }
 
   validateForm(): { [key: string]: string } {
     const errors: { [key: string]: string } = {};
 
     if (!this.payment || this.payment === undefined) {
-      errors.payment = 'Не выбран вид оплаты';
+      errors.payment = "Не выбран вид оплаты";
     }
     if (!this.address || this.address === undefined) {
-      errors.address = 'Введите адрес доставки';
+      errors.address = "Введите адрес доставки";
     }
     if (!this.phone || this.phone === undefined) {
-      errors.phone = 'Введите номер телефона';
+      errors.phone = "Введите номер телефона";
     }
     if (!this.email || this.email === undefined) {
-      errors.email = 'Введите почту';
+      errors.email = "Введите почту";
     }
     return errors;
   }

@@ -22,9 +22,9 @@ export class Basket {
   getTotalItems(): number {
     return this.items.reduce((total, item) => {
       if (item.price !== null) {
-        return total + item.price
+        return total + item.price;
       } else {
-        return total
+        return total;
       }
     }, 0);
   }
@@ -34,6 +34,6 @@ export class Basket {
   }
 
   hasItem(id: string): boolean {
-    return this.items.some(item => item.id === id);
+    return this.items.some((item) => item.id === id);
   }
 }
