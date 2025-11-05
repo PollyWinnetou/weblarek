@@ -1,16 +1,20 @@
 import { IProduct } from "../../../types/index.ts";
+import { IEvents } from "../Events.ts";
 
 export class Products {
   protected items: IProduct[] = [];
-  protected selectedItem: IProduct | null = null;
+  protected selectedItem: IProduct;
+  protected events: IEvents;
 
-  constructor(items: IProduct[], selectedItem: IProduct | null) {
+  constructor(items: IProduct[], selectedItem: IProduct, events: IEvents) {
     this.items = items;
     this.selectedItem = selectedItem;
+    this.events = events;
   }
 
   setItems(items: IProduct[]): void {
     this.items = items;
+    this.events.emit('catalog:change');
   }
 
   getItems(): IProduct[] {
@@ -21,12 +25,9 @@ export class Products {
     return this.items.find((item) => item.id == id);
   }
 
-  setSelectedItem(selectedItem: IProduct | null): void {
-    if (selectedItem == null) {
-      this.selectedItem = null;
-    } else {
-      this.selectedItem = { ...selectedItem };
-    }
+  setSelectedItem(selectedItem: IProduct): void {
+    this.selectedItem = { ...selectedItem };
+    this.events.emit('card:select');
   }
 
   getSelectedItem() {

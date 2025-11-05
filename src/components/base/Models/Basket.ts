@@ -1,7 +1,13 @@
 import { IProduct } from "../../../types/index.ts";
+import { IEvents } from "../Events.ts";
 
 export class Basket {
   protected items: IProduct[] = [];
+  protected events: IEvents;
+
+  constructor(events: IEvents) {
+    this.events = events;
+  }
 
   getItems(): IProduct[] {
     return this.items;
@@ -9,14 +15,16 @@ export class Basket {
 
   addItem(item: IProduct) {
     this.items.push(item);
+    this.events.emit('product:change');
   }
 
   deleteItem(id: string) {
     this.items = this.items.filter((item) => item.id !== id);
+    this.events.emit('product:change');
   }
 
   clearItems() {
-    this.items = [];
+    this.items = [];;
   }
 
   getTotalItems(): number {
