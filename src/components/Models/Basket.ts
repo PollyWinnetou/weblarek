@@ -1,5 +1,5 @@
-import { IProduct } from "../../../types/index.ts";
-import { IEvents } from "../Events.ts";
+import { IProduct } from "../../types/index.ts";
+import { IEvents } from "../base/Events.ts";
 
 export class Basket {
   protected items: IProduct[] = [];
@@ -24,7 +24,8 @@ export class Basket {
   }
 
   clearItems() {
-    this.items = [];;
+    this.items = [];
+    this.events.emit('product:change');
   }
 
   getTotalItems(): number {

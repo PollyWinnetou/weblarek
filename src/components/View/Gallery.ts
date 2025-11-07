@@ -1,4 +1,4 @@
-import { Component } from "../Component"; 
+import { Component } from "../base/Component"; 
 
 export interface IGallery {
   items: HTMLElement;
@@ -10,7 +10,7 @@ export class Gallery extends Component<IGallery> {
     super(container);
   }
 
-  setItems(products: HTMLElement[]) {
+  setItems(products: HTMLElement[]): void {
     this.container.replaceChildren(...products);
   }
 }

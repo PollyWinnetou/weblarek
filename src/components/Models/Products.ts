@@ -1,12 +1,12 @@
-import { IProduct } from "../../../types/index.ts";
-import { IEvents } from "../Events.ts";
+import { IProduct } from "../../types/index.ts";
+import { IEvents } from "../base/Events.ts";
 
 export class Products {
   protected items: IProduct[] = [];
-  protected selectedItem: IProduct;
+  protected selectedItem: IProduct | null = null;
   protected events: IEvents;
 
-  constructor(items: IProduct[], selectedItem: IProduct, events: IEvents) {
+  constructor(items: IProduct[], selectedItem: IProduct | null = null, events: IEvents) {
     this.items = items;
     this.selectedItem = selectedItem;
     this.events = events;
@@ -31,6 +31,6 @@ export class Products {
   }
 
   getSelectedItem() {
-    return { ...this.selectedItem };
+    return this.selectedItem ? { ...this.selectedItem } : null;
   }
 }

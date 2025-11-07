@@ -1,9 +1,8 @@
-import { ensureElement } from "../../../../utils/utils";
-import { Card } from "./Card";
-import { categoryMap, CDN_URL } from "../../../../utils/constants";
-import { IEvents } from "../../Events";
-import { IProduct } from "../../../../types";
-
+import { ensureElement } from "../../../utils/utils" 
+import { Card } from "./Card" 
+import { categoryMap, CDN_URL } from "../../../utils/constants" 
+import { IEvents } from "../../base/Events" 
+import { IProduct } from "../../../types" 
 
 export class CardPreview extends Card<IProduct & { buttonText: string }> {
   protected cardCategory: HTMLElement;
@@ -28,7 +27,7 @@ export class CardPreview extends Card<IProduct & { buttonText: string }> {
     this.cardCategory.className = 'card__category';
     const modi = (categoryMap as Record<string, string>)[value.toLowerCase()];
     if (modi) {
-        this.cardCategory.classList.add(modi)
+        this.cardCategory.classList.add(modi);
     }
   }
   

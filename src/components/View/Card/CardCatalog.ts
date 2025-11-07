@@ -1,7 +1,7 @@
-import { ensureElement } from "../../../../utils/utils";
-import { Card } from "./Card";
-import { categoryMap, CDN_URL } from "../../../../utils/constants";
-import { IProduct } from "../../../../types";
+import { ensureElement } from "../../../utils/utils" 
+import { Card } from "./Card" 
+import { categoryMap, CDN_URL } from "../../../utils/constants" 
+import { IProduct } from "../../../types" 
 
 interface ICardActions {
   onClick: (event: MouseEvent) => void
