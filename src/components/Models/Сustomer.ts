@@ -60,7 +60,7 @@ export class Customer implements IBuyer {
   }
 
   validateForm(): { [key: string]: string } {
-    let errors: { [key: string]: string } = {};
+    const errors: { [key: string]: string } = {};
 
     if (!this.payment || this.payment === undefined) {
       errors.payment = "Не выбран вид оплаты";

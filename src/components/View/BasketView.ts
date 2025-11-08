@@ -27,7 +27,7 @@ export class BasketView extends Component<IBasketView> {
     this.basketButton.disabled = true;
 
     this.basketButton.addEventListener("click", () => {
-      events.emit("basket:create");
+      events.emit("order:open");
     });
   }
 

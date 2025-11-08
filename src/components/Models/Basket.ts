@@ -15,17 +15,17 @@ export class Basket {
 
   addItem(item: IProduct) {
     this.items.push(item);
-    this.events.emit('product:change');
+    this.events.emit('basket:change');
   }
 
   deleteItem(id: string) {
     this.items = this.items.filter((item) => item.id !== id);
-    this.events.emit('product:change');
+    this.events.emit('basket:change');
   }
 
   clearItems() {
     this.items = [];
-    this.events.emit('product:change');
+    this.events.emit('basket:change');
   }
 
   getTotalItems(): number {

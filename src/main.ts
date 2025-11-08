@@ -26,7 +26,7 @@ import { ensureElement, cloneTemplate } from "./utils/utils";
 import "./scss/styles.scss";
 // base
 const api = new Api(API_URL);
-const WebLarekApiModel = new WebLarekApi(api);
+const webLarekApiModel = new WebLarekApi(api);
 const events = new EventEmitter();
 // Models
 const products = new Products([], null, events);
@@ -42,7 +42,7 @@ const contacts = new Contacts(cloneTemplate("#contacts"), events);
 const success = new Success(cloneTemplate("#success"), events);
 const cardPreview = new CardPreview(cloneTemplate("#card-preview"), events);
 
-WebLarekApiModel.getProducts()
+webLarekApiModel.getProducts()
   .then((result: IProduct[]) => {
     products.setItems(result);
   })
@@ -85,15 +85,14 @@ events.on("product:button-click", () => {
     const inBasket = basket.hasItem(selectedProduct.id);
     if (inBasket) {
       basket.deleteItem(selectedProduct.id);
-      modal.closeModal();
     } else {
       basket.addItem(selectedProduct);
-      modal.closeModal();
     }
+    modal.closeModal();
   }
 });
 
-events.on("product:change", () => {
+events.on("basket:change", () => {
   header.сounter = basket.getCountItems();
   const items = basket.getItems().map((item, index) => {
     const cardBasket = new CardBasket(cloneTemplate("#card-basket"), events);
@@ -118,7 +117,7 @@ events.on("basket:delete", ({ id }: { id: string }) => {
   basket.deleteItem(id);
 });
 
-events.on("basket:create", () => {
+events.on("order:open", () => {
   modal.content = order.render();
 });
 
@@ -142,11 +141,12 @@ events.on("form:change", (event: { field: keyof IBuyer; value: string }) => {
 
 events.on("order:change", () => {
   const validation = customer.validateForm();
+  const customerData = customer.getData();
   const { payment, address } = validation;
   const isValid = !(payment || address);
   const formData = {
-    payment: customer.getData().payment,
-    address: customer.getData().address,
+    payment: customerData.payment,
+    address: customerData.address,
     valid: isValid,
     errors: validation.value,
   };
@@ -160,11 +160,12 @@ events.on("order:submit", () => {
 
 events.on("contact:change", () => {
   const validation = customer.validateForm();
+  const customerData = customer.getData();
   const { email, phone } = validation;
   const isValid = !(email || phone);
   const formData = {
-    email: customer.getData().email,
-    phone: customer.getData().phone,
+    email: customerData.email,
+    phone: customerData.phone,
     valid: isValid,
     errors: validation.value,
   };
@@ -172,21 +173,34 @@ events.on("contact:change", () => {
 });
 
 events.on("contacts:submit", () => {
+  const customerData = customer.getData();
   const orderData = {
-    payment: customer.getData().payment,
-    address: customer.getData().address,
-    email: customer.getData().email,
-    phone: customer.getData().phone,
+    payment: customerData.payment,
+    address: customerData.address,
+    email: customerData.email,
+    phone: customerData.phone,
     total: basket.getTotalItems(),
     items: basket.getItems().map((item) => item.id),
   };
 
-  WebLarekApiModel.sendOrder(orderData)
+  webLarekApiModel.sendOrder(orderData)
     .then((_order) => {
       success.sum = basket.getTotalItems();
       modal.content = success.render({ sum: basket.getTotalItems() });
       basket.clearItems();
       customer.clearData();
+      order.render({
+        payment: '',
+        address: '',
+        valid: false,
+        errors: ''
+      });
+      contacts.render({
+        email: '',
+        phone: '',
+        valid: false, 
+        errors: ''
+      });
     })
     .catch((_error) => {});
 });
