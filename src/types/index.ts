@@ -25,3 +25,33 @@ export interface IOrder extends IBuyer {
     total: number;
     items: string[];
 }
+
+export interface IGallery {
+  items: HTMLElement;
+}
+
+export interface IHeader {
+  counter: number;
+}
+
+export interface IModal {
+  content: HTMLElement;
+}
+
+export interface ISuccess {
+  sum: number;
+}
+
+export interface IBasketView {
+  listProducts: HTMLElement[];
+  totalPrice: number;
+}
+
+export interface ICardActions {
+  onClick: (event: MouseEvent) => void
+}
+
+export interface IForm extends IBuyer {
+  errors: string;
+  valid: boolean;
+}

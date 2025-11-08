@@ -1,4 +1,4 @@
-import { IApi, IProduct, IOrder } from "../../types";
+import { IApi, IProduct, IOrder } from "../types";
 
 export class WebLarekApi {
   protected api: IApi;

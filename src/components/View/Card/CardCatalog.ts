@@ -1,11 +1,7 @@
-import { ensureElement } from "../../../utils/utils" 
-import { Card } from "./Card" 
-import { categoryMap, CDN_URL } from "../../../utils/constants" 
-import { IProduct } from "../../../types" 
-
-interface ICardActions {
-  onClick: (event: MouseEvent) => void
-}
+import { ensureElement } from "../../../utils/utils";
+import { Card } from "./Card";
+import { categoryMap, CDN_URL } from "../../../utils/constants";
+import { ICardActions, IProduct } from "../../../types";
 
 export class CardCatalog extends Card<IProduct> {
   protected cardCategory: HTMLElement;
@@ -13,20 +9,26 @@ export class CardCatalog extends Card<IProduct> {
 
   constructor(container: HTMLElement, actions: ICardActions) {
     super(container);
-    this.cardCategory = ensureElement<HTMLElement>('.card__category', this.container);
-    this.imageElement = ensureElement<HTMLImageElement>('.card__image', this.container);
+    this.cardCategory = ensureElement<HTMLElement>(
+      ".card__category",
+      this.container
+    );
+    this.imageElement = ensureElement<HTMLImageElement>(
+      ".card__image",
+      this.container
+    );
 
     if (actions?.onClick) {
-      this.container.addEventListener('click', actions.onClick);
+      this.container.addEventListener("click", actions.onClick);
     }
   }
 
   set category(value: string) {
     this.cardCategory.textContent = value;
-    this.cardCategory.className = 'card__category';
+    this.cardCategory.className = "card__category";
     const modi = (categoryMap as Record<string, string>)[value.toLowerCase()];
     if (modi) {
-        this.cardCategory.classList.add(modi);
+      this.cardCategory.classList.add(modi);
     }
   }
 

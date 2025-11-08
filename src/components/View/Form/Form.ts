@@ -1,12 +1,7 @@
-import { IBuyer } from "../../../types" 
-import { ensureElement } from "../../../utils/utils" 
-import { Component } from "../../base/Component" 
-import { IEvents } from "../../base/Events" 
-
-interface IForm extends IBuyer {
-  errors: string;
-  valid: boolean;
-}
+import { IBuyer, IForm } from "../../../types";
+import { ensureElement } from "../../../utils/utils";
+import { Component } from "../../base/Component";
+import { IEvents } from "../../base/Events";
 
 export abstract class Form extends Component<IForm> {
   protected buttonForm: HTMLButtonElement;
@@ -14,14 +9,20 @@ export abstract class Form extends Component<IForm> {
 
   constructor(container: HTMLElement, protected events: IEvents) {
     super(container);
-    this.buttonForm = ensureElement<HTMLButtonElement>('button[type="submit"]', this.container);
-    this.errorForm = ensureElement<HTMLElement>('.form__errors', this.container);
+    this.buttonForm = ensureElement<HTMLButtonElement>(
+      'button[type="submit"]',
+      this.container
+    );
+    this.errorForm = ensureElement<HTMLElement>(
+      ".form__errors",
+      this.container
+    );
 
-    container.addEventListener('submit', (event) => { 
+    container.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.events.emit(`${this.container.getAttribute('name')}:submit`);
+      this.events.emit(`${this.container.getAttribute("name")}:submit`);
     });
-  } 
+  }
 
   set valid(isValid: boolean) {
     this.buttonForm.disabled = !isValid;
@@ -32,7 +33,7 @@ export abstract class Form extends Component<IForm> {
   }
 
   onInputChange(field: keyof IBuyer, value: string) {
-    this.events.emit('form:change', {
+    this.events.emit("form:change", {
       field,
       value,
     });
