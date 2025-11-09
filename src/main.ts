@@ -189,8 +189,6 @@ events.on("contacts:submit", () => {
       modal.content = success.render({ sum: basket.getTotalItems() });
       basket.clearItems();
       customer.clearData();
-      order.render();
-      contacts.render();
     })
     .catch(error => console.log(error));
 });
