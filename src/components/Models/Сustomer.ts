@@ -57,6 +57,8 @@ export class Customer implements IBuyer {
     this.address = '';
     this.email = '';
     this.phone = '';
+    this.events.emit("order:change");
+    this.events.emit("contact:change");
   }
 
   validateForm(): { [key: string]: string } {

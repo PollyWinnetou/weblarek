@@ -46,7 +46,7 @@ webLarekApiModel.getProducts()
   .then((result: IProduct[]) => {
     products.setItems(result);
   })
-  .catch((_error) => {});
+  .catch(error => console.log(error));
 
 events.on("catalog:change", () => {
   const items = products.getItems().map((item) => {
@@ -189,20 +189,10 @@ events.on("contacts:submit", () => {
       modal.content = success.render({ sum: basket.getTotalItems() });
       basket.clearItems();
       customer.clearData();
-      order.render({
-        payment: '',
-        address: '',
-        valid: false,
-        errors: ''
-      });
-      contacts.render({
-        email: '',
-        phone: '',
-        valid: false, 
-        errors: ''
-      });
+      order.render();
+      contacts.render();
     })
-    .catch((_error) => {});
+    .catch(error => console.log(error));
 });
 
 events.on("done:click", () => {
